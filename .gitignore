@@ -1,6 +1,7 @@
-# System
+# System & OS
 .DS_Store
 Thumbs.db
+*.tmp
 
 # Python & Backend
 backend/venv/
@@ -24,7 +25,22 @@ frontend/build/
 .npm
 *.log
 
-# Env
+# Environment Variables
 .env
 .env.local
 .env.*.local
+
+# Agent Workflows & AI Helper Files
+.agent/
+**/.agent/
+**/AGENTS.md
+**/CLAUDE.md
+
+# Assignment Document & Workflow / Audit Reports
+*.docx
+*.doc
+SYSTEM_AUDIT_REPORT.md
+ARCHITECTURE.md
+INTERVIEW_GUIDE.md
+backend/benchmarks/
+backend/websocket_benchmark_results.json
