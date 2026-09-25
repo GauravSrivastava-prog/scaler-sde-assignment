@@ -73,9 +73,13 @@ export function WebSocketProvider({ children }: { children: React.ReactNode }) {
 
     setStatus(reconnectAttemptsRef.current === 0 ? 'connecting' : 'reconnecting');
 
-    // Derive WS URL
-    const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000/api';
-    const wsUrl = apiUrl.replace(/^http/, 'ws').replace(/\/api$/, '') + `/ws?token=${token}`;
+    // Derive WS URL reliably
+    const rawApiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000/api';
+    const cleanUrl = rawApiUrl.trim().replace(/\/+$/, '').replace(/\/api$/, '');
+    const isHttps = cleanUrl.startsWith('https://') || (typeof window !== 'undefined' && window.location.protocol === 'https:');
+    const wsProtocol = isHttps ? 'wss://' : 'ws://';
+    const wsHost = cleanUrl.replace(/^https?:\/\//, '');
+    const wsUrl = `${wsProtocol}${wsHost}/ws?token=${token}`;
 
     try {
       const socket = new WebSocket(wsUrl);

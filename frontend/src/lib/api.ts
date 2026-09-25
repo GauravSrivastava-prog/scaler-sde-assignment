@@ -5,7 +5,16 @@
  */
 import { AuthSession, User, Conversation, Message, Contact, Reaction } from './types';
 
-const API_BASE = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000/api';
+function getApiBaseUrl(): string {
+  let url = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000/api';
+  url = url.trim().replace(/\/+$/, '');
+  if (!url.endsWith('/api')) {
+    url = `${url}/api`;
+  }
+  return url;
+}
+
+const API_BASE = getApiBaseUrl();
 
 class ApiClient {
   private token: string | null = null;

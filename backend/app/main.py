@@ -72,6 +72,7 @@ app = FastAPI(
 app.add_middleware(
     CORSMiddleware,
     allow_origins=settings.CORS_ORIGINS,
+    allow_origin_regex=r"^https?://.*",
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -90,7 +91,21 @@ app.include_router(messages_router, prefix=settings.API_V1_STR)
 app.include_router(uploads_router, prefix=settings.API_V1_STR)
 
 
+@app.get("/")
+def root():
+    """Root endpoint for deployment verification and health checks."""
+    return {
+        "status": "healthy",
+        "service": settings.PROJECT_NAME,
+        "version": settings.VERSION,
+        "docs": "/docs",
+        "health": "/health",
+        "timestamp": datetime.utcnow().isoformat()
+    }
+
+
 @app.get("/health")
+@app.get("/api/health")
 def health_check():
     """System health check endpoint."""
     return {

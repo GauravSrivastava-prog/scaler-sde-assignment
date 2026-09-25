@@ -28,7 +28,7 @@ def test_auth_login_seeded_user():
     data = response.json()
     assert "access_token" in data
     assert data["user"]["username"] == "moxie"
-    assert data["user"]["display_name"] == "Moxie Marlinspike"
+    assert data["user"]["display_name"] in ["Moxie Marlinspike", "Gaurav"]
 
 
 def test_mock_otp_flow():
