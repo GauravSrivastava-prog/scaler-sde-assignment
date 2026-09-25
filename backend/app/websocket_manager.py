@@ -101,10 +101,10 @@ class ConnectionManager:
 
         for ws in sockets:
             try:
-                await ws.send_text(message_data)
+                await asyncio.wait_for(ws.send_text(message_data), timeout=1.0)
                 delivered_count += 1
             except Exception as exc:
-                logger.warning(f"Error sending WebSocket frame to user {user_id}: {exc}")
+                logger.warning(f"Error or timeout sending WebSocket frame to user {user_id}: {exc}")
                 stale_sockets.append(ws)
 
         # Cleanup dead sockets
