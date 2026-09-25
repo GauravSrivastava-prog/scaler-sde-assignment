@@ -8,6 +8,13 @@ Recreates Signal's signature design language, end-to-end encryption simulation, 
 
 ## 🚀 Live Demo & Quick Launch
 
+- 🌐 **Live Web Application (Vercel)**: [https://scaler-sde-assignment-eta.vercel.app](https://scaler-sde-assignment-eta.vercel.app)
+- ⚙️ **Production Backend API (Render)**: [https://scaler-sde-assignment.onrender.com](https://scaler-sde-assignment.onrender.com)
+- 📖 **Interactive Swagger / OpenAPI Docs**: [https://scaler-sde-assignment.onrender.com/docs](https://scaler-sde-assignment.onrender.com/docs)
+- 🩺 **System Health Endpoint**: [https://scaler-sde-assignment.onrender.com/health](https://scaler-sde-assignment.onrender.com/health)
+
+---
+
 ### 1. Prerequisites
 - **Node.js** (v18+ or v20+) & **npm**
 - **Python** (3.9+) & **pip**
