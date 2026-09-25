@@ -10,6 +10,8 @@ backend/.venv/
 *$py.class
 backend/*.db
 backend/*.db-journal
+backend/*.db-shm
+backend/*.db-wal
 backend/.pytest_cache/
 backend/uploads/*
 !backend/uploads/.gitkeep
