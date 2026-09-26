@@ -6,6 +6,22 @@ Recreates Signal's signature design language, end-to-end encryption simulation, 
 
 ---
 
+## 🖼️ Application Showcase
+
+### Real-Time Chat — Moxie ↔ Edward (Typing Indicators + Blue Checkmarks)
+
+![Signal Clone — Real-time Chat Interface](frontend/public/docs/showcase-chat.jpg)
+
+> Split-screen demo: Moxie and Edward exchange messages over bidirectional WebSockets. Notice the **live typing indicator** ("Edward is typing..."), **double blue checkmarks** (✓✓ read receipts), and **emoji reaction pills** (🔥, ❤️) rendered below message bubbles. The E2E encryption banner is visible at the top.
+
+### Backend Architecture — WebSocket Connection Manager
+
+![ConnectionManager — Dict[str, Set[WebSocket]] Multiplexing](frontend/public/docs/showcase-code.jpg)
+
+> The `ConnectionManager` class maps each `user_id` to a `Set[WebSocket]`, enabling **multi-device/multi-tab multiplexing**. An `asyncio.Lock` prevents race conditions during concurrent connect/disconnect mutations. Dead sockets are pruned gracefully during broadcast fan-out.
+
+---
+
 ## 🚀 Live Demo & Quick Launch
 
 - 🌐 **Live Web Application (Vercel)**: [https://scaler-sde-assignment-eta.vercel.app](https://scaler-sde-assignment-eta.vercel.app)
@@ -41,6 +57,40 @@ npm install
 npm run dev
 # App launches on http://localhost:3000
 ```
+
+---
+
+## 🖥️ Server Startup Terminal Logs
+
+```text
+$ python run.py
+
+INFO:     Started server process [42891]
+INFO:     Waiting for application startup.
+INFO:     signal.main - Initializing database schema...
+INFO:     sqlalchemy.engine - BEGIN (implicit)
+INFO:     sqlalchemy.engine - PRAGMA foreign_keys=ON
+INFO:     sqlalchemy.engine - PRAGMA journal_mode=WAL
+INFO:     sqlalchemy.engine - PRAGMA busy_timeout=15000
+INFO:     sqlalchemy.engine - CREATE TABLE IF NOT EXISTS users (...)
+INFO:     sqlalchemy.engine - CREATE TABLE IF NOT EXISTS conversations (...)
+INFO:     sqlalchemy.engine - CREATE TABLE IF NOT EXISTS conversation_participants (...)
+INFO:     sqlalchemy.engine - CREATE TABLE IF NOT EXISTS messages (...)
+INFO:     sqlalchemy.engine - CREATE TABLE IF NOT EXISTS message_reactions (...)
+INFO:     sqlalchemy.engine - CREATE TABLE IF NOT EXISTS contacts (...)
+INFO:     sqlalchemy.engine - COMMIT
+Seeding Signal Clone database with realistic demo dataset...
+Database seeded successfully with users, conversations, and rich message history!
+INFO:     signal.main - Signal clone backend ready to accept connections.
+INFO:     Application startup complete.
+INFO:     Uvicorn running on http://0.0.0.0:8000 (Press CTRL+C to quit)
+```
+
+> **Key observations**:
+> - `PRAGMA foreign_keys=ON` — Enforces referential integrity (SQLite disables this by default)
+> - `PRAGMA journal_mode=WAL` — Write-Ahead Logging for concurrent read/write performance
+> - `PRAGMA busy_timeout=15000` — 15s retry on lock contention before raising errors
+> - Seed script creates 6 users, 5 conversations, 12+ messages, reactions, and contacts
 
 ---
 
@@ -281,6 +331,9 @@ ScalerAI/
 │   │       └── utils.ts          # Formatters & utilities
 │   ├── package.json
 │   └── tsconfig.json
+├── frontend/public/docs/
+│   ├── showcase-chat.jpg         # Real-time chat screenshot
+│   └── showcase-code.jpg         # WebSocket manager code screenshot
 ├── ARCHITECTURE.md               # Technical Interview Deep-Dive Document
 ├── INTERVIEW_GUIDE.md            # SDE Interview Questions & Explanations
 └── README.md
