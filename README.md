@@ -1,4 +1,4 @@
-# 🔒 Signal Messenger Clone — Scaler Lab AI SDE Fullstack Submission
+# Signal Messenger Clone — Scaler Lab AI SDE Fullstack Submission
 
 A production-grade, privacy-focused clone of the **Signal Desktop Messenger** built with **Next.js 16 (React 19, TypeScript)**, **FastAPI (Python 3.9+)**, **SQLite**, and **bidirectional WebSockets**.
 
